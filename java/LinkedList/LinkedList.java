@@ -42,6 +42,18 @@ public class LinkedList {
         return pointer;
     }
 
+    public void removeMidNode(Node n) {
+        Node pointer = n;
+        while (true) {
+            pointer.data = pointer.next.data;
+            if (pointer.next.next == null) {
+                pointer.next = null;
+                return;
+            }
+            pointer = pointer.next;
+        }
+    }
+
     @Override
     public String toString() {
         if (this.head == null) {
@@ -67,7 +79,8 @@ public class LinkedList {
         ll.appendToTail("d");
         ll.appendToTail("e");
         System.out.println(ll);
-        System.out.println(ll.getNode(5).data);
+        Node toRemove = ll.getNode(2);
+        ll.removeMidNode(toRemove);
+        System.out.println(ll);
     }
-
 }
