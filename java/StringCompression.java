@@ -8,25 +8,49 @@ public class StringCompression {
      * compress(abc) // abc 
      */
     public static String compress(String str) {
+        int originalSize = str.length();
+        int compressedSize = countCompression(str);
+        if (compressedSize > originalSize) {
+            return str;
+        }
 
         StringBuilder compressed = new StringBuilder(str.length());
-        compressed.append(str.charAt(0));
+        char last = str.charAt(0);
         int count = 1;
-        for (int i = 1; i < str.length(); i += 1) {
-            int lastCharIndex = compressed.length() - 1;
-            if (compressed.charAt(lastCharIndex) == str.charAt(i)) {
+        for (int i = 0; i < str.length(); i += 1) {
+            if (last == str.charAt(i)) {
                 count += 1;
             } else {
+                compressed.append(last);
                 compressed.append(count);
-                compressed.append(str.charAt(i));
+                last = str.charAt(i);
                 count = 1;
             }
         }
+        compressed.append(last);
         compressed.append(count);
-        if (compressed.length() < str.length()) {
-            return compressed.toString();
+        return compressed.toString();
+    }
+
+
+    public static int countCompression(String str) {
+        if (str == null || str.isEmpty()) {
+            return 0;
         }
-        return str;
+        char last = str.charAt(0);
+        int size = 0;
+        int count = 1;
+        for (int i = 1; i < str.length(); i += 1) {
+            if (str.charAt(i) == last) {
+                count += 1;
+            } else {
+                last = str.charAt(i);
+                size += 1 + String.valueOf(count).length();
+                count = 1;
+            }
+        }
+        size += 1 + String.valueOf(count).length();
+        return size;
     }
 
     public static void main(String[] args) {
