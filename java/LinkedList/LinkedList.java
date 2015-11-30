@@ -1,32 +1,32 @@
 import java.lang.StringBuilder;
 import java.lang.IndexOutOfBoundsException;
-public class LinkedList {
+public class LinkedList<T> {
 
-    private class Node {
+    class Node {
 
         Node next = null;
-        String data;
+        T data;
 
-        public Node(String str) {
-            this.data = str;
+        public Node(T data) {
+            this.data = data;
         }
     }
 
     private Node head;
     private int size = 0;
 
-    void appendToTail(String str) {
-        Node end = new Node(str);
+    void appendToTail(T data) {
+        Node newTail = new Node(data);
         this.size += 1;
         Node pointer = this.head;
         if (pointer == null) {
-            this.head = end;
+            this.head = newTail;
             return;
         }
         while (pointer.next != null) {
             pointer = pointer.next;
         }
-        pointer.next = end;
+        pointer.next = newTail;
     }
 
     public Node getNode(int index) {
@@ -54,6 +54,11 @@ public class LinkedList {
         }
     }
 
+    public Node getStartOfCycle() {
+
+        
+    }
+
     @Override
     public String toString() {
         if (this.head == null) {
@@ -72,15 +77,15 @@ public class LinkedList {
     }
 
     public static void main(String[] args) {
-        LinkedList ll = new LinkedList();
+        LinkedList<String> ll = new LinkedList<String>();
         ll.appendToTail("a");
         ll.appendToTail("b");
         ll.appendToTail("c");
         ll.appendToTail("d");
         ll.appendToTail("e");
-        System.out.println(ll);
-        Node toRemove = ll.getNode(2);
-        ll.removeMidNode(toRemove);
-        System.out.println(ll);
+        System.out.println(ll); // a -> b -> c -> d -> e
+        ll.removeMidNode(ll.getNode(2));
+        System.out.println(ll); // a -> b -> d -> e
+
     }
 }
