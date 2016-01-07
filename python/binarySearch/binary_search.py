@@ -14,6 +14,5 @@ def binary_search(sorted_list, target):
         elif target < mid_item:
             return search(sorted_list, target, low, mid_index)
         else:
-            # print(mid_index)
             return mid_index
     return search(sorted_list, target, 0, len(sorted_list))
