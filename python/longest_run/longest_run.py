@@ -23,8 +23,3 @@ def longest_run(string):
             moving_start_index = i
             current_streak_count = 1
     return toReturn
-
-print(longest_run("abbbcc"))
-print(longest_run("aabbc"))
-print(longest_run("abcd"))
-print(longest_run("aabbbccccc"))
